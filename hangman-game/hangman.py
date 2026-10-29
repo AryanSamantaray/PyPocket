@@ -1,7 +1,7 @@
 import random
 
-# words=["apple","banana","mango","litchi","papaya","strawberry"]
-words=["mango",]
+words=["apple","banana","mango","litchi","papaya","strawberry"]
+# words=["mango",]
 word=random.choice(words)
 
 hangman = [
@@ -62,41 +62,48 @@ guessed=[]
 wrong_attempts=0
 max_attempts=5
 
-while wrong_attempts < max_attempts:
-    guess=input("Guess the letter:").lower()
-    
-    if len(guess) != 1 or not guess.isalpha():
-        print("enter a single letter")
-        continue
+while True:
 
-    if guess in guessed:
-        print("already guessed that")
-        continue
+    while wrong_attempts < max_attempts:
+        guess=input("Guess the letter:").lower()
 
-    guessed.append(guess)
+        if len(guess) != 1 or not guess.isalpha():
+            print("enter a single letter")
+            continue
 
-    if guess in word:
-        print("correct")
-    else :
-        wrong_attempts+=1
-        print("wrong")
-        print(hangman[wrong_attempts])
+        if guess in guessed:
+            print("already guessed that")
+            continue
 
-    print("failed attempts:", wrong_attempts, "/", max_attempts)
+        guessed.append(guess)
 
-    shown =""
-    for letter in word:
-        if letter in guessed:
-            shown+=letter+""
-        else:
-            shown=shown+"_"
-    print(shown)
-    print("Letters guessed so far:", guessed)
+        if guess in word:
+            print("correct")
+        else :
+            wrong_attempts+=1
+            print("wrong")
+            print(hangman[wrong_attempts])
 
-    if "_" not in shown:
-            print("you won!")
-            break
+        print("failed attempts:", wrong_attempts, "/", max_attempts)
 
-if wrong_attempts == max_attempts:
-    print("you lost! the word was", word)
+        shown =""
+        for letter in word:
+            if letter in guessed:
+                shown+=letter+""
+            else:
+                shown=shown+"_"
+        print(shown)
+        print("Letters guessed so far:", guessed)
+
+        if "_" not in shown:
+                print("you won!")
+                break
+
+    if wrong_attempts == max_attempts:
+        print("you lost! the word was", word)
+
+    again = input("play again? (y/n): ").lower()
+    if again != "y":
+        print("thanks for playing")
+        break
 
